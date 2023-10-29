@@ -1,4 +1,5 @@
 use serde::Deserialize;
+use serde_json::json;
 use std::io;
 use std::io::BufReader;
 use std::io::{Read, Write};
@@ -12,7 +13,8 @@ pub struct FF2MpvMessage {
 
 pub fn send_reply() -> Result<(), io::Error> {
     // "ok" formatted as a JSON string
-    send_message("\"ok\"")
+    let reply = json!("ok").to_string();
+    send_message(&reply)
 }
 
 pub fn get_mpv_message() -> Result<FF2MpvMessage, FF2MpvError> {
